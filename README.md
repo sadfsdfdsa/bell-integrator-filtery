@@ -1,4 +1,12 @@
-# frontend
+# Bell Integrator test case
+
+#Using libs:
+ VUEX, VUEROUTER, VUE, QUASAR, vue-text-highlight
+... and standart Vue-Cli-4 for TS template
+
+# API:
+URL: https://jsonplaceholder.typicode.com
+Fetch albums and photos for each album
 
 ## Project setup
 ```
@@ -7,18 +15,5 @@ npm install
 
 ### Compiles and hot-reloads for development
 ```
-npm run serve
+npm run dev
 ```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
