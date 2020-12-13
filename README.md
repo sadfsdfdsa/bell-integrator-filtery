@@ -1,7 +1,7 @@
 # Bell Integrator test case
 
-#Using libs:
- VUEX, VUEROUTER, VUE, QUASAR, vue-text-highlight
+# Using libs:
+VUEX, VUEROUTER, VUE, QUASAR, vue-text-highlight
 ... and standart Vue-Cli-4 for TS template
 
 # API:
