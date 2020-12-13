@@ -2,7 +2,7 @@
 
 # Using libs:
 VUEX, VUEROUTER, VUE, QUASAR, vue-text-highlight
-... and standart Vue-Cli-4 for TS template
+... and default Vue-cli-4 for TS template
 
 # API:
 URL: https://jsonplaceholder.typicode.com
