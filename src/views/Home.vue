@@ -52,29 +52,31 @@ export default Vue.extend({
       return this.$store.getters.picked;
     },
     sortedAlbums(): Array<Album> | null {
-      const albums: Array<Album> | null = this.$store.getters.albums;
+      let albums: Array<Album> | null = this.$store.getters.albums;
       if (!this.input || !albums) return albums;
-      return albums.sort((album1: Album, album2: Album): number => {
-        let album1Count = this.substringsNumber(album1.title);
-        let album2Count = this.substringsNumber(album2.title);
 
-        album1.photos &&
-          album1.photos.forEach(
-            (photo) => (album1Count += this.substringsNumber(photo.title))
-          );
+      const albumsSubstring: Record<number, number> = {};
 
-        album2.photos &&
-          album2.photos.forEach(
-            (photo) => (album2Count += this.substringsNumber(photo.title))
-          );
+      albums.forEach(album => {
+        let albumCount = this.substringsNumber(album.title);
+        album.photos && album.photos.forEach(photo => 
+          albumCount += this.substringsNumber(photo.title)
+        )
+        albumsSubstring[album.id] = albumCount;
+      })
 
-        // я не знаю почему, но мой линтер для vscode делает так!
-        return album1Count > album2Count
+      albums = albums.filter(album => albumsSubstring[album.id] !== 0)
+
+      return albums.sort((album1, album2): number => {
+        const al1Count = albumsSubstring[album1.id];
+        const al2Count = albumsSubstring[album2.id];
+
+        return al1Count > al2Count
           ? 1 // more
-          : album1Count === album2Count
+          : al1Count === al2Count
           ? 0 // ===
           : -1; // less
-      });
+      })
     },
   },
   methods: {
@@ -82,8 +84,8 @@ export default Vue.extend({
       return string.split(this.input).length - 1;
     },
     async addToPicked(index: number): Promise<void> {
-      if (!this.albums) return;
-      this.$store.dispatch("addToPicked", this.albums[index]);
+      if (!this.sortedAlbums) return;
+      this.$store.dispatch("addToPicked", this.sortedAlbums[index]);
     },
     async addToAlbums(index: number): Promise<void> {
       this.$store.dispatch("addToAlbums", this.picked[index]);
